@@ -23,6 +23,33 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
     }
+    @IBAction func addButton(_ sender: UIBarButtonItem) {
+        let alertController = UIAlertController(title: "Register Users", message: "", preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (action) in
+            self.dismiss(animated: true, completion: nil)
+        }
+        alertController.addAction(cancelAction)
+        
+        let registerAction = UIAlertAction(title: "Register", style: .default) { (action) in
+//            let name = alertController.textFields![0] as UITextField
+//            let subject = alertController.textFields![1] as UITextField
+//            let score = alertController.textFields![2] as UITextField
+        }
+        
+        alertController.addAction(registerAction)
+        alertController.addTextField { (textField) in
+            textField.placeholder = "Name"
+        }
+        alertController.addTextField { (textField) in
+            textField.placeholder = "Subject"
+        }
+        alertController.addTextField { (textField) in
+            textField.placeholder = "Score"
+            textField.keyboardType = .decimalPad
+        }
+        present(alertController, animated: true, completion: nil)
+    }
+    
 }
 
 extension MainViewController: UITableViewDataSource {

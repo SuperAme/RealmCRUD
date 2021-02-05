@@ -106,7 +106,11 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" title="Realm CRUD" id="lK7-Hw-JkK">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="maN-X7-eBR"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="maN-X7-eBR">
+                            <connections>
+                                <action selector="addButton:" destination="BYZ-38-t0r" id="eB5-2H-riU"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="rqv-vm-AcC" id="baE-8v-mXE"/>
