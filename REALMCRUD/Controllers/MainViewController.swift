@@ -7,10 +7,14 @@
 //
 
 import UIKit
+import RealmSwift
 
 class MainViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
+    
+    let realm = try! Realm()
+    var myStudent = Students()
     
     var data = [
         ["americo","matematicas", "10"],
@@ -20,9 +24,12 @@ class MainViewController: UIViewController {
 
     override func viewDidLoad() {
         tableView.dataSource = self
+        
+        print(Realm.Configuration.defaultConfiguration.fileURL)
         super.viewDidLoad()
         // Do any additional setup after loading the view.
     }
+    
     @IBAction func addButton(_ sender: UIBarButtonItem) {
         let alertController = UIAlertController(title: "Register Users", message: "", preferredStyle: .alert)
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (action) in
@@ -31,9 +38,19 @@ class MainViewController: UIViewController {
         alertController.addAction(cancelAction)
         
         let registerAction = UIAlertAction(title: "Register", style: .default) { (action) in
-//            let name = alertController.textFields![0] as UITextField
-//            let subject = alertController.textFields![1] as UITextField
-//            let score = alertController.textFields![2] as UITextField
+            let newStudent = Students()
+            let name = alertController.textFields![0] as UITextField
+            let subject = alertController.textFields![1] as UITextField
+            let score = alertController.textFields![2] as UITextField
+            
+            if name.text != "" && subject.text != "" && score.text != "" {
+                newStudent.name = name.text!
+                newStudent.subject = subject.text!
+                newStudent.score = score.text!
+                self.saveData(student: newStudent)
+            }
+            
+            
         }
         
         alertController.addAction(registerAction)
@@ -45,9 +62,19 @@ class MainViewController: UIViewController {
         }
         alertController.addTextField { (textField) in
             textField.placeholder = "Score"
-            textField.keyboardType = .decimalPad
         }
         present(alertController, animated: true, completion: nil)
+    }
+    
+    func saveData(student: Students) {
+        do {
+            try realm.write {
+                realm.add(student)
+            }
+        } catch {
+            print("erros saving data \(error)")
+        }
+        tableView.reloadData()
     }
     
 }
