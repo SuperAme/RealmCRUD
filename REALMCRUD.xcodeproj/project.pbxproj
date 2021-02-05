@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		064E34264F40332A06CDC1D8 /* Pods_REALMCRUD.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 375A21C4256249BF76B9DC1C /* Pods_REALMCRUD.framework */; };
 		D62B64B125CCD29F003470B4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D62B64B025CCD29F003470B4 /* AppDelegate.swift */; };
 		D62B64B325CCD29F003470B4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D62B64B225CCD29F003470B4 /* SceneDelegate.swift */; };
 		D62B64B525CCD29F003470B4 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D62B64B425CCD29F003470B4 /* MainViewController.swift */; };
@@ -17,6 +18,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		375A21C4256249BF76B9DC1C /* Pods_REALMCRUD.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_REALMCRUD.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6DD44CAE058E8306EFC30CF3 /* Pods-REALMCRUD.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-REALMCRUD.release.xcconfig"; path = "Target Support Files/Pods-REALMCRUD/Pods-REALMCRUD.release.xcconfig"; sourceTree = "<group>"; };
+		7395B0A0A2CB69760BB4CA73 /* Pods-REALMCRUD.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-REALMCRUD.debug.xcconfig"; path = "Target Support Files/Pods-REALMCRUD/Pods-REALMCRUD.debug.xcconfig"; sourceTree = "<group>"; };
 		D62B64AD25CCD29F003470B4 /* REALMCRUD.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = REALMCRUD.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D62B64B025CCD29F003470B4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D62B64B225CCD29F003470B4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -33,17 +37,28 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				064E34264F40332A06CDC1D8 /* Pods_REALMCRUD.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		83EE52E26307FCC16A9D3274 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				375A21C4256249BF76B9DC1C /* Pods_REALMCRUD.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		D62B64A425CCD29F003470B4 = {
 			isa = PBXGroup;
 			children = (
 				D62B64AF25CCD29F003470B4 /* REALMCRUD */,
 				D62B64AE25CCD29F003470B4 /* Products */,
+				D74539F68FBB23B6BA29928E /* Pods */,
+				83EE52E26307FCC16A9D3274 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -78,6 +93,16 @@
 			path = Controllers;
 			sourceTree = "<group>";
 		};
+		D74539F68FBB23B6BA29928E /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				7395B0A0A2CB69760BB4CA73 /* Pods-REALMCRUD.debug.xcconfig */,
+				6DD44CAE058E8306EFC30CF3 /* Pods-REALMCRUD.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -85,9 +110,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D62B64C125CCD2A1003470B4 /* Build configuration list for PBXNativeTarget "REALMCRUD" */;
 			buildPhases = (
+				CBB733E53768D75E183EE7FE /* [CP] Check Pods Manifest.lock */,
 				D62B64A925CCD29F003470B4 /* Sources */,
 				D62B64AA25CCD29F003470B4 /* Frameworks */,
 				D62B64AB25CCD29F003470B4 /* Resources */,
+				899ED3D351654F8FF5989DEE /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -143,6 +170,48 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		899ED3D351654F8FF5989DEE /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-REALMCRUD/Pods-REALMCRUD-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-REALMCRUD/Pods-REALMCRUD-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-REALMCRUD/Pods-REALMCRUD-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CBB733E53768D75E183EE7FE /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-REALMCRUD-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		D62B64A925CCD29F003470B4 /* Sources */ = {
@@ -294,6 +363,7 @@
 		};
 		D62B64C225CCD2A1003470B4 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7395B0A0A2CB69760BB4CA73 /* Pods-REALMCRUD.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -312,6 +382,7 @@
 		};
 		D62B64C325CCD2A1003470B4 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6DD44CAE058E8306EFC30CF3 /* Pods-REALMCRUD.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
