@@ -25,6 +25,7 @@ class MainViewController: UIViewController {
 
     override func viewDidLoad() {
         tableView.dataSource = self
+        tableView.delegate = self
         
         print(Realm.Configuration.defaultConfiguration.fileURL)
         super.viewDidLoad()
@@ -99,7 +100,21 @@ extension MainViewController: UITableViewDataSource {
         
         return cell
     }
-    
-    
+}
+extension MainViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration?
+    {
+        let deleteAction = UIContextualAction(style: .normal, title: "Delete") { (action, view, handler) in
+            print("Delete Action Tapped \(indexPath.row)")
+        }
+        deleteAction.backgroundColor = .red
+        
+        let editAction = UIContextualAction(style: .normal, title: "Edit") { (action, view, handler) in
+            print("Edit Action Tapped \(indexPath.row)")
+        }
+        editAction.backgroundColor = #colorLiteral(red: 0.9529411793, green: 0.6862745285, blue: 0.1333333403, alpha: 1)
+        let swipe = UISwipeActionsConfiguration(actions: [deleteAction, editAction])
+        return swipe
+    }
 }
 
