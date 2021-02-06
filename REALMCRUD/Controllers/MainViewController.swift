@@ -25,6 +25,7 @@ class MainViewController: UIViewController {
 
     override func viewDidLoad() {
         tableView.dataSource = self
+        tableView.delegate = self
         
         print(Realm.Configuration.defaultConfiguration.fileURL)
         super.viewDidLoad()
@@ -101,5 +102,11 @@ extension MainViewController: UITableViewDataSource {
     }
     
     
+}
+
+extension MainViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print(indexPath.row)
+    }
 }
 
