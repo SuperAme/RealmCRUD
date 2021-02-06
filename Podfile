@@ -7,5 +7,4 @@ target 'REALMCRUD' do
 
   # Pods for REALMCRUD
   pod 'RealmSwift'
-  pod 'SwipeCellKit'
 end
