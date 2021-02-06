@@ -14,7 +14,8 @@ class MainViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
     let realm = try! Realm()
-    var myStudent = Students()
+    var studentsData: Results<Students>?
+//    var myStudent = Students()
     
     var data = [
         ["americo","matematicas", "10"],
@@ -27,6 +28,7 @@ class MainViewController: UIViewController {
         
         print(Realm.Configuration.defaultConfiguration.fileURL)
         super.viewDidLoad()
+        loadData()
         // Do any additional setup after loading the view.
     }
     
@@ -77,18 +79,23 @@ class MainViewController: UIViewController {
         tableView.reloadData()
     }
     
+    func loadData() {
+        studentsData = realm.objects(Students.self)
+        tableView.reloadData()
+    }
+    
 }
 
 extension MainViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return data.count
+        return studentsData?.count ?? 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "infoCell", for: indexPath) as! InformationTableViewCell
-        cell.nameLbl.text = data[indexPath.row][0]
-        cell.subjectLbl.text = data[indexPath.row][1]
-        cell.scoreLbl.text = data[indexPath.row][2]
+        cell.nameLbl.text = studentsData?[indexPath.row].name ?? "No students"
+        cell.subjectLbl.text = studentsData?[indexPath.row].subject ?? "No subject"
+        cell.scoreLbl.text = studentsData?[indexPath.row].score ?? "0"
         
         return cell
     }
