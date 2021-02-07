@@ -15,14 +15,8 @@ class MainViewController: UIViewController {
     
     let realm = try! Realm()
     var studentsData: Results<Students>?
-//    var myStudent = Students()
+    //    var myStudent = Students()
     
-    var data = [
-        ["americo","matematicas", "10"],
-        ["karly","pedagogia", "10"],
-        ["bek","IA", "9"]
-    ]
-
     override func viewDidLoad() {
         tableView.dataSource = self
         tableView.delegate = self
@@ -34,6 +28,38 @@ class MainViewController: UIViewController {
     }
     
     @IBAction func addButton(_ sender: UIBarButtonItem) {
+        alertRegisterInterface()
+    }
+    
+    func saveData(student: Students) {
+        do {
+            try realm.write {
+                realm.add(student)
+            }
+        } catch {
+            print("erros saving data \(error)")
+        }
+        tableView.reloadData()
+    }
+    
+    func loadData() {
+        studentsData = realm.objects(Students.self)
+        tableView.reloadData()
+    }
+    func deleteData(index: Int) {
+        if let studentToDelete = studentsData?[index] {
+            do {
+                try realm.write {
+                    realm.delete(studentToDelete)
+                }
+            } catch {
+                print("error deleting student: \(error)")
+            }
+        }
+        tableView.reloadData()
+    }
+    
+    func alertRegisterInterface() {
         let alertController = UIAlertController(title: "Register Users", message: "", preferredStyle: .alert)
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (action) in
             self.dismiss(animated: true, completion: nil)
@@ -69,32 +95,49 @@ class MainViewController: UIViewController {
         present(alertController, animated: true, completion: nil)
     }
     
-    func saveData(student: Students) {
-        do {
-            try realm.write {
-                realm.add(student)
-            }
-        } catch {
-            print("erros saving data \(error)")
+    func alertUpdateInterface(index: Int) {
+        let alertController = UIAlertController(title: "Update User", message: "", preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (action) in
+            self.dismiss(animated: true, completion: nil)
         }
-        tableView.reloadData()
-    }
-    
-    func loadData() {
-        studentsData = realm.objects(Students.self)
-        tableView.reloadData()
-    }
-    func deleteData(index: Int) {
-        if let studentToDelete = studentsData?[index] {
-            do {
-                try realm.write {
-                    realm.delete(studentToDelete)
+        alertController.addAction(cancelAction)
+        
+        let registerAction = UIAlertAction(title: "Update", style: .default) { (action) in
+            let newStudent = Students()
+            let name = alertController.textFields![0] as UITextField
+            let subject = alertController.textFields![1] as UITextField
+            let score = alertController.textFields![2] as UITextField
+            
+            if let studentToUpdate = self.studentsData?[index] {
+                if name.text != "" && subject.text != "" && score.text != "" {
+                    do {
+                        try self.realm.write {
+                            studentToUpdate.name = name.text
+                            studentToUpdate.subject = subject.text
+                            studentToUpdate.score = score.text
+                            self.tableView.reloadData()
+                        }
+                    } catch {
+                        print("error updating user: \(error)")
+                    }
                 }
-            } catch {
-                print("error deleting student: \(error)")
+            }
+            
+        }
+        if let studentData = studentsData?[index] {
+            alertController.addAction(registerAction)
+            alertController.addTextField { (textField) in
+                textField.text = studentData.name
+            }
+            alertController.addTextField { (textField) in
+                textField.text = studentData.subject
+            }
+            alertController.addTextField { (textField) in
+                textField.text = studentData.score
             }
         }
-        tableView.reloadData()
+        
+        present(alertController, animated: true, completion: nil)
     }
     
 }
@@ -118,12 +161,12 @@ extension MainViewController: UITableViewDelegate {
     {
         let deleteAction = UIContextualAction(style: .normal, title: "Delete") { (action, view, handler) in
             self.deleteData(index: indexPath.row)
-//            print("Delete Action Tapped \(indexPath.row)")
+            //            print("Delete Action Tapped \(indexPath.row)")
         }
         deleteAction.backgroundColor = .red
         
         let editAction = UIContextualAction(style: .normal, title: "Edit") { (action, view, handler) in
-            print("Edit Action Tapped \(indexPath.row)")
+            self.alertUpdateInterface(index: indexPath.row)
         }
         editAction.backgroundColor = #colorLiteral(red: 0.9529411793, green: 0.6862745285, blue: 0.1333333403, alpha: 1)
         let swipe = UISwipeActionsConfiguration(actions: [deleteAction, editAction])
