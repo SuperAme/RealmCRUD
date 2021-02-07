@@ -84,6 +84,18 @@ class MainViewController: UIViewController {
         studentsData = realm.objects(Students.self)
         tableView.reloadData()
     }
+    func deleteData(index: Int) {
+        if let studentToDelete = studentsData?[index] {
+            do {
+                try realm.write {
+                    realm.delete(studentToDelete)
+                }
+            } catch {
+                print("error deleting student: \(error)")
+            }
+        }
+        tableView.reloadData()
+    }
     
 }
 
@@ -105,7 +117,8 @@ extension MainViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration?
     {
         let deleteAction = UIContextualAction(style: .normal, title: "Delete") { (action, view, handler) in
-            print("Delete Action Tapped \(indexPath.row)")
+            self.deleteData(index: indexPath.row)
+//            print("Delete Action Tapped \(indexPath.row)")
         }
         deleteAction.backgroundColor = .red
         
